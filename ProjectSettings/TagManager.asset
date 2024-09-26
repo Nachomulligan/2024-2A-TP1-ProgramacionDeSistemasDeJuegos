@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - TownCenter
+  - Enemy
   layers:
   - Default
   - TransparentFX
