@@ -19,7 +19,7 @@ namespace Enemies
         private void Awake()
         {
             FetchComponents();
-            InitializeTownCenter(); 
+            InitializeTownCenter();
         }
 
         private void FetchComponents()
@@ -45,7 +45,7 @@ namespace Enemies
         {
             if (!agent.isActiveAndEnabled)
             {
-                agent.enabled = true; 
+                agent.enabled = true;
             }
 
             SetDestinationToTownCenter();
@@ -99,7 +99,7 @@ namespace Enemies
 
         private void OnDisable()
         {
-            agent.enabled = false; 
+            agent.enabled = false;
         }
     }
 }

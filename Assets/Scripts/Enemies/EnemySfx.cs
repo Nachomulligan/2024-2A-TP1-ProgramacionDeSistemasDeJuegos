@@ -6,32 +6,27 @@ namespace Enemies
     [RequireComponent(typeof(Enemy))]
     public class EnemySfx : MonoBehaviour
     {
-        [SerializeField] private AudioPlayer audioSourcePrefab;
-        [SerializeField] private RandomContainer<AudioClipData> spawnClips;
-        [SerializeField] private RandomContainer<AudioClipData> explosionClips;
+        private AudioService audioService;
         private Enemy _enemy;
 
         private void Reset() => FetchComponents();
 
         private void Awake() => FetchComponents();
-    
+
         private void FetchComponents()
         {
-            // "a ??= b" is equivalent to "if(a == null) a = b" 
             _enemy ??= GetComponent<Enemy>();
         }
-        
+
         private void OnEnable()
         {
-            if (!audioSourcePrefab)
-            {
-                Debug.LogError($"{nameof(audioSourcePrefab)} is null!");
-                return;
-            }
+            
+            audioService = ServiceLocator.Instance.GetService("AudioService") as AudioService;
+
             _enemy.OnSpawn += HandleSpawn;
             _enemy.OnDeath += HandleDeath;
         }
-        
+
         private void OnDisable()
         {
             _enemy.OnSpawn -= HandleSpawn;
@@ -40,19 +35,19 @@ namespace Enemies
 
         private void HandleDeath()
         {
-            PlayRandomClip(explosionClips, audioSourcePrefab);
+            PlayRandomClip(audioService.GetExplosionClips(), audioService.GetAudioSourcePrefab());
         }
 
         private void HandleSpawn()
         {
-            PlayRandomClip(spawnClips, audioSourcePrefab);
+            PlayRandomClip(audioService.GetSpawnClips(), audioService.GetAudioSourcePrefab());
         }
 
         private void PlayRandomClip(RandomContainer<AudioClipData> container, AudioPlayer sourcePrefab)
         {
             if (!container.TryGetRandom(out var clipData))
                 return;
-            
+
             SpawnSource(sourcePrefab).Play(clipData);
         }
 
