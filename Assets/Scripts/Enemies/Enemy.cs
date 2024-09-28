@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HealthSystem;
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
@@ -6,10 +7,11 @@ using UnityEngine.AI;
 namespace Enemies
 {
     [RequireComponent(typeof(NavMeshAgent))]
-    public class Enemy : MonoBehaviour, ICloneable
+    public class Enemy : MonoBehaviour
     {
         [SerializeField] private NavMeshAgent agent;
         private static Transform townCenter;
+        private HealthComponent healthComponent;
 
         public event Action OnSpawn = delegate { };
         public event Action OnDeath = delegate { };
@@ -55,26 +57,10 @@ namespace Enemies
 
         private void SetDestinationToTownCenter()
         {
-            // Asegurarse de que el destino esté en el mismo plano
             Vector3 destination = townCenter.position;
-            destination.y = transform.position.y; // Ajustar la altura
+            destination.y = transform.position.y; 
             agent.SetDestination(destination);
         }
-        //private void OnEnable()
-        //{
-        //    //Is this necessary?? We're like, searching for it from every enemy D:
-        //    var townCenter = GameObject.FindGameObjectWithTag("TownCenter");
-        //    if (townCenter == null)
-        //    {
-        //        Debug.LogError($"{name}: Found no {nameof(townCenter)}!! :(");
-        //        return;
-        //    }
-
-        //    var destination = townCenter.transform.position;
-        //    destination.y = transform.position.y;
-        //    agent.SetDestination(destination);
-        //    StartCoroutine(AlertSpawn());
-        //}
 
         private IEnumerator AlertSpawn()
         {
@@ -88,10 +74,28 @@ namespace Enemies
             if (agent.hasPath && Vector3.Distance(transform.position, agent.destination) <= agent.stoppingDistance)
             {
                 Debug.Log($"{name}: I'll die for my people!");
+                DamageBuilding();
                 Die();
             }
         }
 
+        private void DamageBuilding()
+        {
+            if (townCenter != null)
+            {
+                HealthComponent buildingHealth = townCenter.GetComponent<HealthComponent>();
+                if (buildingHealth != null)
+                {
+                    int damageAmount = 100;
+                    buildingHealth.TakeDamage(damageAmount);
+                    Debug.Log($"{name} dealt {damageAmount} damage to {townCenter.name}.");
+                }
+                else
+                {
+                    Debug.LogWarning("HealthComponent not found on " + townCenter.name);
+                }
+            }
+        }
         private void Die()
         {
             OnDeath();
@@ -103,9 +107,5 @@ namespace Enemies
             agent.enabled = false;
         }
 
-        public object Clone()
-        {
-            return Instantiate(this);
-        }
     }
 }
