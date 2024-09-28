@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a224b744e37b6d4c96d7c55d2733649, type: 3}
+  m_Name: SpawnAudioClipsS0
+  m_EditorClassIdentifier: 
+  spawnClips:
+    candidates:
+    - <Loop>k__BackingField: 0
+      <Clip>k__BackingField: {fileID: 8300000, guid: 2dc572a8624f17e4689e2bb1954b8cc1, type: 3}
+      <Group>k__BackingField: {fileID: 5124015694307163796, guid: 7aafde57cdf72e849b574935faed854f, type: 2}
+    - <Loop>k__BackingField: 0
+      <Clip>k__BackingField: {fileID: 8300000, guid: d24d902d02e60ef4d996cae11a13c5f0, type: 3}
+      <Group>k__BackingField: {fileID: 5124015694307163796, guid: 7aafde57cdf72e849b574935faed854f, type: 2}
+    - <Loop>k__BackingField: 0
+      <Clip>k__BackingField: {fileID: 8300000, guid: e39063e50a4dcd746bf6d52a2d83b858, type: 3}
+      <Group>k__BackingField: {fileID: 5124015694307163796, guid: 7aafde57cdf72e849b574935faed854f, type: 2}
+    - <Loop>k__BackingField: 0
+      <Clip>k__BackingField: {fileID: 8300000, guid: a75f452a5cbd6484f92b4e28de210839, type: 3}
+      <Group>k__BackingField: {fileID: 5124015694307163796, guid: 7aafde57cdf72e849b574935faed854f, type: 2}

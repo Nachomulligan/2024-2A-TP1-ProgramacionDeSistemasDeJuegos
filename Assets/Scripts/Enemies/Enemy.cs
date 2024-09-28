@@ -6,7 +6,7 @@ using UnityEngine.AI;
 namespace Enemies
 {
     [RequireComponent(typeof(NavMeshAgent))]
-    public class Enemy : MonoBehaviour
+    public class Enemy : MonoBehaviour, ICloneable
     {
         [SerializeField] private NavMeshAgent agent;
         private static Transform townCenter;
@@ -41,12 +41,13 @@ namespace Enemies
             }
         }
 
-        public void OnSpawnFromPool()
+        public void OnSpawnFromPool(Vector3 spawnPosition)
         {
             if (!agent.isActiveAndEnabled)
             {
                 agent.enabled = true;
             }
+            agent.Warp(spawnPosition);
 
             SetDestinationToTownCenter();
             StartCoroutine(AlertSpawn());
@@ -100,6 +101,11 @@ namespace Enemies
         private void OnDisable()
         {
             agent.enabled = false;
+        }
+
+        public object Clone()
+        {
+            return Instantiate(this);
         }
     }
 }

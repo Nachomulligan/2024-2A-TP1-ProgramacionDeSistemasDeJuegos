@@ -92,50 +92,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9da1e0e0a84d4eb4f8d69cf7600bec67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSourcePrefab: {fileID: 6237993349618790580, guid: 845c69c687f4a704cb7a7c3b134b133b, type: 3}
-  spawnClips:
-    candidates:
-    - <Loop>k__BackingField: 0
-      <Clip>k__BackingField: {fileID: 8300000, guid: 2dc572a8624f17e4689e2bb1954b8cc1, type: 3}
-      <Group>k__BackingField: {fileID: 5124015694307163796, guid: 7aafde57cdf72e849b574935faed854f, type: 2}
-    - <Loop>k__BackingField: 0
-      <Clip>k__BackingField: {fileID: 8300000, guid: d24d902d02e60ef4d996cae11a13c5f0, type: 3}
-      <Group>k__BackingField: {fileID: 5124015694307163796, guid: 7aafde57cdf72e849b574935faed854f, type: 2}
-    - <Loop>k__BackingField: 0
-      <Clip>k__BackingField: {fileID: 8300000, guid: e39063e50a4dcd746bf6d52a2d83b858, type: 3}
-      <Group>k__BackingField: {fileID: 5124015694307163796, guid: 7aafde57cdf72e849b574935faed854f, type: 2}
-    - <Loop>k__BackingField: 0
-      <Clip>k__BackingField: {fileID: 8300000, guid: a75f452a5cbd6484f92b4e28de210839, type: 3}
-      <Group>k__BackingField: {fileID: 5124015694307163796, guid: 7aafde57cdf72e849b574935faed854f, type: 2}
-  explosionClips:
-    candidates:
-    - <Loop>k__BackingField: 0
-      <Clip>k__BackingField: {fileID: 8300000, guid: ea3b8c3505dcbe4438bf7c5dcd6c36b6, type: 3}
-      <Group>k__BackingField: {fileID: 5794750874944222309, guid: 7aafde57cdf72e849b574935faed854f, type: 2}
-    - <Loop>k__BackingField: 0
-      <Clip>k__BackingField: {fileID: 8300000, guid: f250898f23f25014fad9b017254dd106, type: 3}
-      <Group>k__BackingField: {fileID: 5794750874944222309, guid: 7aafde57cdf72e849b574935faed854f, type: 2}
-    - <Loop>k__BackingField: 0
-      <Clip>k__BackingField: {fileID: 8300000, guid: 502241eb68d1e1a40a1b32b53252575c, type: 3}
-      <Group>k__BackingField: {fileID: 5794750874944222309, guid: 7aafde57cdf72e849b574935faed854f, type: 2}
-    - <Loop>k__BackingField: 0
-      <Clip>k__BackingField: {fileID: 8300000, guid: e535ad89bba9bb04ca7102663cc43dc0, type: 3}
-      <Group>k__BackingField: {fileID: 5794750874944222309, guid: 7aafde57cdf72e849b574935faed854f, type: 2}
-    - <Loop>k__BackingField: 0
-      <Clip>k__BackingField: {fileID: 8300000, guid: 97af74ef49578f2419d40f01e0c9e96a, type: 3}
-      <Group>k__BackingField: {fileID: 5794750874944222309, guid: 7aafde57cdf72e849b574935faed854f, type: 2}
-    - <Loop>k__BackingField: 0
-      <Clip>k__BackingField: {fileID: 8300000, guid: 66475aa39f4cf824eaf18d3cc15818a8, type: 3}
-      <Group>k__BackingField: {fileID: 5794750874944222309, guid: 7aafde57cdf72e849b574935faed854f, type: 2}
-    - <Loop>k__BackingField: 0
-      <Clip>k__BackingField: {fileID: 8300000, guid: 554233fb8f5b51641bf4816562f9ab8e, type: 3}
-      <Group>k__BackingField: {fileID: 5794750874944222309, guid: 7aafde57cdf72e849b574935faed854f, type: 2}
-    - <Loop>k__BackingField: 0
-      <Clip>k__BackingField: {fileID: 8300000, guid: 0b88f7241dc22124c856f5d8ffcd080b, type: 3}
-      <Group>k__BackingField: {fileID: 5794750874944222309, guid: 7aafde57cdf72e849b574935faed854f, type: 2}
-    - <Loop>k__BackingField: 0
-      <Clip>k__BackingField: {fileID: 8300000, guid: 3128e7dd8887719489bd061626851a6c, type: 3}
-      <Group>k__BackingField: {fileID: 5794750874944222309, guid: 7aafde57cdf72e849b574935faed854f, type: 2}
 --- !u!114 &-3407731723314543808
 MonoBehaviour:
   m_ObjectHideFlags: 0

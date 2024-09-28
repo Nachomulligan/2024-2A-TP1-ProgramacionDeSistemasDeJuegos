@@ -20,7 +20,7 @@ namespace Enemies
 
         private void OnEnable()
         {
-            
+
             audioService = ServiceLocator.Instance.GetService("AudioService") as AudioService;
 
             _enemy.OnSpawn += HandleSpawn;

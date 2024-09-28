@@ -26,12 +26,13 @@ public class Spawner : MonoBehaviour
         {
             for (int i = 0; i < spawnsPerPeriod; i++)
             {
-                GameObject enemyObj = objectPooler.SpawnFromPool("Enemy", transform.position, Quaternion.identity);
+                Vector3 spawnPosition = transform.position;
+                GameObject enemyObj = objectPooler.SpawnFromPool("Enemy", spawnPosition, Quaternion.identity);
 
                 Enemy enemy = enemyObj.GetComponent<Enemy>();
                 if (enemy != null)
                 {
-                    enemy.OnSpawnFromPool();  
+                    enemy.OnSpawnFromPool(spawnPosition);  
                 }
            
             }

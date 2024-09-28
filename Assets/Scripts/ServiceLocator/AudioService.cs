@@ -6,8 +6,8 @@ using UnityEngine;
 
 public class AudioService : MonoBehaviour
 {
-    [SerializeField] private RandomContainer<AudioClipData> spawnClips;
-    [SerializeField] private RandomContainer<AudioClipData> explosionClips;
+    [SerializeField] private SpawnAudioClipSO spawnClipsSO; 
+    [SerializeField] private ExplosionAudioClipSO explosionClipsSO;
     [SerializeField] private AudioPlayer audioSourcePrefab;
 
     private void Awake()
@@ -17,12 +17,12 @@ public class AudioService : MonoBehaviour
 
     public RandomContainer<AudioClipData> GetSpawnClips()
     {
-        return spawnClips;
+        return spawnClipsSO.spawnClips;
     }
 
     public RandomContainer<AudioClipData> GetExplosionClips()
     {
-        return explosionClips;
+        return explosionClipsSO.explosionClips;
     }
 
     public AudioPlayer GetAudioSourcePrefab()
