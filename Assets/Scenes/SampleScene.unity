@@ -229,6 +229,51 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &138151705
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 138151707}
+  - component: {fileID: 138151706}
+  m_Layer: 0
+  m_Name: VFXService
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &138151706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 138151705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92579db9315556f4296fd221a29c7df8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deathParticlesSO: {fileID: 11400000, guid: 87b53f0f6a2d2104d80e40ec4a8359b1, type: 2}
+--- !u!4 &138151707
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 138151705}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -304.20023, y: -623.9854, z: -96.32203}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &182581313
 GameObject:
   m_ObjectHideFlags: 0
@@ -373,7 +418,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4428820282715910064, guid: 413d672c8588bf144b7289d4d3f7533a, type: 3}
       propertyPath: period
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4428820282715910064, guid: 413d672c8588bf144b7289d4d3f7533a, type: 3}
       propertyPath: frequency
@@ -385,7 +430,7 @@ PrefabInstance:
       objectReference: {fileID: 802423057}
     - target: {fileID: 4428820282715910064, guid: 413d672c8588bf144b7289d4d3f7533a, type: 3}
       propertyPath: spawnsPerPeriod
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5560509649689442658, guid: 413d672c8588bf144b7289d4d3f7533a, type: 3}
       propertyPath: m_Name
@@ -594,7 +639,7 @@ GameObject:
   m_Component:
   - component: {fileID: 523869460}
   - component: {fileID: 523869463}
-  - component: {fileID: 523869462}
+  - component: {fileID: 523869464}
   - component: {fileID: 523869461}
   m_Layer: 5
   m_Name: Audio Source Counter
@@ -711,20 +756,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &523869462
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 523869459}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddd62fc044f625b49a5e44fb566c095f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  text: {fileID: 523869461}
-  textFormat: 'Audio sources: {0}'
 --- !u!222 &523869463
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -733,6 +764,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 523869459}
   m_CullTransparentMesh: 1
+--- !u!114 &523869464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 523869459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 898df82e62954956948c917759c5e3d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 523869461}
+  textFormat: 'Audio Sources: {0}'
 --- !u!1 &658305190
 GameObject:
   m_ObjectHideFlags: 0
@@ -1319,46 +1364,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e04d9d2f22b8e44589a2728c92377e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnClips:
-    candidates:
-    - <Loop>k__BackingField: 0
-      <Clip>k__BackingField: {fileID: 8300000, guid: 2dc572a8624f17e4689e2bb1954b8cc1, type: 3}
-      <Group>k__BackingField: {fileID: 5124015694307163796, guid: 7aafde57cdf72e849b574935faed854f, type: 2}
-    - <Loop>k__BackingField: 0
-      <Clip>k__BackingField: {fileID: 8300000, guid: d24d902d02e60ef4d996cae11a13c5f0, type: 3}
-      <Group>k__BackingField: {fileID: 5124015694307163796, guid: 7aafde57cdf72e849b574935faed854f, type: 2}
-    - <Loop>k__BackingField: 0
-      <Clip>k__BackingField: {fileID: 8300000, guid: e39063e50a4dcd746bf6d52a2d83b858, type: 3}
-      <Group>k__BackingField: {fileID: 5124015694307163796, guid: 7aafde57cdf72e849b574935faed854f, type: 2}
-    - <Loop>k__BackingField: 0
-      <Clip>k__BackingField: {fileID: 8300000, guid: a75f452a5cbd6484f92b4e28de210839, type: 3}
-      <Group>k__BackingField: {fileID: 5124015694307163796, guid: 7aafde57cdf72e849b574935faed854f, type: 2}
-  explosionClips:
-    candidates:
-    - <Loop>k__BackingField: 0
-      <Clip>k__BackingField: {fileID: 8300000, guid: ea3b8c3505dcbe4438bf7c5dcd6c36b6, type: 3}
-      <Group>k__BackingField: {fileID: 5794750874944222309, guid: 7aafde57cdf72e849b574935faed854f, type: 2}
-    - <Loop>k__BackingField: 0
-      <Clip>k__BackingField: {fileID: 8300000, guid: f250898f23f25014fad9b017254dd106, type: 3}
-      <Group>k__BackingField: {fileID: 5794750874944222309, guid: 7aafde57cdf72e849b574935faed854f, type: 2}
-    - <Loop>k__BackingField: 0
-      <Clip>k__BackingField: {fileID: 8300000, guid: 502241eb68d1e1a40a1b32b53252575c, type: 3}
-      <Group>k__BackingField: {fileID: 5794750874944222309, guid: 7aafde57cdf72e849b574935faed854f, type: 2}
-    - <Loop>k__BackingField: 0
-      <Clip>k__BackingField: {fileID: 8300000, guid: e535ad89bba9bb04ca7102663cc43dc0, type: 3}
-      <Group>k__BackingField: {fileID: 5794750874944222309, guid: 7aafde57cdf72e849b574935faed854f, type: 2}
-    - <Loop>k__BackingField: 0
-      <Clip>k__BackingField: {fileID: 8300000, guid: 97af74ef49578f2419d40f01e0c9e96a, type: 3}
-      <Group>k__BackingField: {fileID: 5794750874944222309, guid: 7aafde57cdf72e849b574935faed854f, type: 2}
-    - <Loop>k__BackingField: 0
-      <Clip>k__BackingField: {fileID: 8300000, guid: 66475aa39f4cf824eaf18d3cc15818a8, type: 3}
-      <Group>k__BackingField: {fileID: 5794750874944222309, guid: 7aafde57cdf72e849b574935faed854f, type: 2}
-    - <Loop>k__BackingField: 0
-      <Clip>k__BackingField: {fileID: 8300000, guid: 554233fb8f5b51641bf4816562f9ab8e, type: 3}
-      <Group>k__BackingField: {fileID: 5794750874944222309, guid: 7aafde57cdf72e849b574935faed854f, type: 2}
-    - <Loop>k__BackingField: 0
-      <Clip>k__BackingField: {fileID: 8300000, guid: 0b88f7241dc22124c856f5d8ffcd080b, type: 3}
-      <Group>k__BackingField: {fileID: 5794750874944222309, guid: 7aafde57cdf72e849b574935faed854f, type: 2}
+  spawnClipsSO: {fileID: 11400000, guid: e00e90c9efb6e824c84de90c8905a344, type: 2}
+  explosionClipsSO: {fileID: 11400000, guid: ac9018b8dca240f4ca2b733e0cc51b3f, type: 2}
   audioSourcePrefab: {fileID: 6237993349618790580, guid: 845c69c687f4a704cb7a7c3b134b133b, type: 3}
 --- !u!4 &914430961
 Transform:
@@ -1579,7 +1586,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4428820282715910064, guid: 413d672c8588bf144b7289d4d3f7533a, type: 3}
       propertyPath: period
-      value: 1.5
+      value: 1.6
       objectReference: {fileID: 0}
     - target: {fileID: 4428820282715910064, guid: 413d672c8588bf144b7289d4d3f7533a, type: 3}
       propertyPath: frequency
@@ -1591,7 +1598,7 @@ PrefabInstance:
       objectReference: {fileID: 802423057}
     - target: {fileID: 4428820282715910064, guid: 413d672c8588bf144b7289d4d3f7533a, type: 3}
       propertyPath: spawnsPerPeriod
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5560509649689442658, guid: 413d672c8588bf144b7289d4d3f7533a, type: 3}
       propertyPath: m_Name
@@ -2135,7 +2142,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4428820282715910064, guid: 413d672c8588bf144b7289d4d3f7533a, type: 3}
       propertyPath: period
-      value: 2
+      value: 1.8
       objectReference: {fileID: 0}
     - target: {fileID: 4428820282715910064, guid: 413d672c8588bf144b7289d4d3f7533a, type: 3}
       propertyPath: frequency
@@ -2147,7 +2154,7 @@ PrefabInstance:
       objectReference: {fileID: 802423057}
     - target: {fileID: 4428820282715910064, guid: 413d672c8588bf144b7289d4d3f7533a, type: 3}
       propertyPath: spawnsPerPeriod
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5560509649689442658, guid: 413d672c8588bf144b7289d4d3f7533a, type: 3}
       propertyPath: m_Name
@@ -2207,8 +2214,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 4428820282715910064, guid: 413d672c8588bf144b7289d4d3f7533a, type: 3}
+      propertyPath: period
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4428820282715910064, guid: 413d672c8588bf144b7289d4d3f7533a, type: 3}
       propertyPath: frequency
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4428820282715910064, guid: 413d672c8588bf144b7289d4d3f7533a, type: 3}
       propertyPath: objectPooler
@@ -2279,3 +2290,4 @@ SceneRoots:
   - {fileID: 833500631}
   - {fileID: 1218614774}
   - {fileID: 914430961}
+  - {fileID: 138151707}
