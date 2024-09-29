@@ -16,17 +16,28 @@ public class Building : MonoBehaviour
     private void OnEnable()
     {
         healthComponent.OnDeath += HandleDeath;
+
+        var buildingAliveService = ServiceLocator.Instance.GetService("BuildingAliveService") as BuildingAliveService;
+        if (buildingAliveService != null)
+        {
+            buildingAliveService.RegisterBuilding(this);
+        }
     }
 
     private void OnDisable()
     {
         healthComponent.OnDeath -= HandleDeath;
+
+        var buildingAliveService = ServiceLocator.Instance.GetService("BuildingAliveService") as BuildingAliveService;
+        if (buildingAliveService != null)
+        {
+            buildingAliveService.UnregisterBuilding(this);
+        }
     }
 
     private void HandleDeath()
     {
         gameObject.SetActive(false);
-
         FindObjectOfType<BuildingManager>().HandleBuildingDeath(this);
     }
 

@@ -10,7 +10,8 @@ namespace Enemies
     public class Enemy : MonoBehaviour
     {
         [SerializeField] private NavMeshAgent agent;
-        private static Transform townCenter;
+        private Transform targetBuilding;
+        private BuildingAliveService buildingAliveService;
         private HealthComponent healthComponent;
 
         public event Action OnSpawn = delegate { };
@@ -21,25 +22,28 @@ namespace Enemies
         private void Awake()
         {
             FetchComponents();
-            InitializeTownCenter();
+            buildingAliveService = ServiceLocator.Instance.GetService("BuildingAliveService") as BuildingAliveService;
+            UpdateClosestBuilding();
         }
 
         private void FetchComponents()
         {
             agent ??= GetComponent<NavMeshAgent>();
+            healthComponent = GetComponent<HealthComponent>();
         }
 
-        private void InitializeTownCenter()
+        private void UpdateClosestBuilding()
         {
-            if (townCenter == null)
+            if (buildingAliveService != null)
             {
-                var townCenterObject = GameObject.FindGameObjectWithTag("TownCenter");
-                if (townCenterObject == null)
+                Building closestBuilding = buildingAliveService.GetClosestBuilding(transform.position);
+                if (closestBuilding != null)
                 {
-                    Debug.LogError("No se encontró el Town Center.");
-                    return;
+                    targetBuilding = closestBuilding.transform; 
+                    Vector3 destination = targetBuilding.position;
+                    destination.y = transform.position.y;
+                    StartCoroutine(SetDestinationToClosestBuildingAfterWaiting(destination)); 
                 }
-                townCenter = townCenterObject.transform;
             }
         }
 
@@ -51,49 +55,72 @@ namespace Enemies
             }
             agent.Warp(spawnPosition);
 
-            SetDestinationToTownCenter();
+            healthComponent.Heal(healthComponent.GetMaxHealth());
+            UpdateClosestBuilding(); 
             StartCoroutine(AlertSpawn());
         }
 
-        private void SetDestinationToTownCenter()
+        private IEnumerator SetDestinationToClosestBuildingAfterWaiting(Vector3 destination)
         {
-            Vector3 destination = townCenter.position;
-            destination.y = transform.position.y; 
-            agent.SetDestination(destination);
+            if (targetBuilding != null)
+            {
+                yield return 2; 
+                agent.SetDestination(destination);
+            }
         }
 
         private IEnumerator AlertSpawn()
         {
-            //Waiting one frame because event subscribers could run their onEnable after us.
-            yield return null;
+            yield return null; 
             OnSpawn();
         }
 
         private void Update()
         {
+            if (targetBuilding != null && !targetBuilding.gameObject.activeInHierarchy)
+            {
+                Debug.Log($"{targetBuilding.name} is inactive. Finding new target...");
+                UpdateClosestBuilding();
+                return;
+            }
+
             if (agent.hasPath && Vector3.Distance(transform.position, agent.destination) <= agent.stoppingDistance)
             {
                 Debug.Log($"{name}: I'll die for my people!");
                 DamageBuilding();
-                Die();
+                DamageSelf();
+                CheckIfDead();
             }
         }
 
         private void DamageBuilding()
         {
-            if (townCenter != null)
+            if (targetBuilding != null)
             {
-                HealthComponent buildingHealth = townCenter.GetComponent<HealthComponent>();
+                HealthComponent buildingHealth = targetBuilding.GetComponent<HealthComponent>();
                 if (buildingHealth != null)
                 {
-                    int damageAmount = 100;
+                    int damageAmount = 10;
                     buildingHealth.TakeDamage(damageAmount);
-                    Debug.Log($"{name} dealt {damageAmount} damage to {townCenter.name}.");
+                    Debug.Log($"{name} dealt {damageAmount} damage to {targetBuilding.name}.");
                 }
                 else
                 {
-                    Debug.LogWarning("HealthComponent not found on " + townCenter.name);
+                    Debug.LogWarning("HealthComponent not found on " + targetBuilding.name);
                 }
+            }
+        }
+
+        private void DamageSelf()
+        {
+            int selfDamage = 10; 
+            healthComponent.TakeDamage(selfDamage);
+        }
+        private void CheckIfDead()
+        {
+            if (healthComponent.GetCurrentHealth() <= 0)
+            {
+                Die();
             }
         }
         private void Die()
@@ -106,6 +133,5 @@ namespace Enemies
         {
             agent.enabled = false;
         }
-
     }
 }
