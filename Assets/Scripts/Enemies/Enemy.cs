@@ -12,7 +12,8 @@ namespace Enemies
         [SerializeField] private NavMeshAgent agent;
         private Transform targetBuilding;
         private BuildingAliveService buildingAliveService;
-        private HealthComponent healthComponent;
+        private IHealth health; 
+        private bool hasDamagedBuilding; 
 
         public event Action OnSpawn = delegate { };
         public event Action OnDeath = delegate { };
@@ -23,13 +24,13 @@ namespace Enemies
         {
             FetchComponents();
             buildingAliveService = ServiceLocator.Instance.GetService("BuildingAliveService") as BuildingAliveService;
+            health = new Health(10); 
             UpdateClosestBuilding();
         }
 
         private void FetchComponents()
         {
             agent ??= GetComponent<NavMeshAgent>();
-            healthComponent = GetComponent<HealthComponent>();
         }
 
         private void UpdateClosestBuilding()
@@ -39,10 +40,10 @@ namespace Enemies
                 Building closestBuilding = buildingAliveService.GetClosestBuilding(transform.position);
                 if (closestBuilding != null)
                 {
-                    targetBuilding = closestBuilding.transform; 
+                    targetBuilding = closestBuilding.transform;
                     Vector3 destination = targetBuilding.position;
                     destination.y = transform.position.y;
-                    StartCoroutine(SetDestinationToClosestBuildingAfterWaiting(destination)); 
+                    StartCoroutine(SetDestinationToClosestBuildingAfterWaiting(destination));
                 }
             }
         }
@@ -54,9 +55,8 @@ namespace Enemies
                 agent.enabled = true;
             }
             agent.Warp(spawnPosition);
-
-            healthComponent.Heal(healthComponent.GetMaxHealth());
-            UpdateClosestBuilding(); 
+            health.Heal(health.GetMaxHealth()); 
+            UpdateClosestBuilding();
             StartCoroutine(AlertSpawn());
         }
 
@@ -64,14 +64,14 @@ namespace Enemies
         {
             if (targetBuilding != null)
             {
-                yield return 2; 
+                yield return new WaitForSeconds(2);
                 agent.SetDestination(destination);
             }
         }
 
         private IEnumerator AlertSpawn()
         {
-            yield return null; 
+            yield return null;
             OnSpawn();
         }
 
@@ -86,10 +86,18 @@ namespace Enemies
 
             if (agent.hasPath && Vector3.Distance(transform.position, agent.destination) <= agent.stoppingDistance)
             {
-                Debug.Log($"{name}: I'll die for my people!");
-                DamageBuilding();
-                DamageSelf();
-                CheckIfDead();
+                if (!hasDamagedBuilding) 
+                {
+                    Debug.Log($"{name}: I'll die for my people!");
+                    DamageBuilding();
+                    DamageSelf();
+                    CheckIfDead();
+                    hasDamagedBuilding = true; 
+                }
+            }
+            else
+            {
+                hasDamagedBuilding = false;
             }
         }
 
@@ -97,32 +105,34 @@ namespace Enemies
         {
             if (targetBuilding != null)
             {
-                HealthComponent buildingHealth = targetBuilding.GetComponent<HealthComponent>();
-                if (buildingHealth != null)
+                Building building = targetBuilding.GetComponent<Building>(); 
+                if (building != null)
                 {
                     int damageAmount = 10;
-                    buildingHealth.TakeDamage(damageAmount);
+                    building.TakeDamage(damageAmount); 
                     Debug.Log($"{name} dealt {damageAmount} damage to {targetBuilding.name}.");
                 }
                 else
                 {
-                    Debug.LogWarning("HealthComponent not found on " + targetBuilding.name);
+                    Debug.LogWarning("Building not found on " + targetBuilding.name);
                 }
             }
         }
 
         private void DamageSelf()
         {
-            int selfDamage = 10; 
-            healthComponent.TakeDamage(selfDamage);
+            int selfDamage = 10;
+            health.TakeDamage(selfDamage);
         }
+
         private void CheckIfDead()
         {
-            if (healthComponent.GetCurrentHealth() <= 0)
+            if (health.GetCurrentHealth() <= 0)
             {
                 Die();
             }
         }
+
         private void Die()
         {
             OnDeath();

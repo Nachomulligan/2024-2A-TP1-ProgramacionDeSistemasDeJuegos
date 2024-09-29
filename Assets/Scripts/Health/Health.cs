@@ -5,54 +5,32 @@ using UnityEngine;
 
 namespace HealthSystem
 {
-    public delegate void HealthPointsChangedEvent(int before, int after);
-
-    public class Health
+    public class Health : IHealth
     {
         public int MaxHP { get; private set; }
         private int _hp;
         public event Action OnDeath = delegate { };
-        public event HealthPointsChangedEvent OnDamage = delegate { };
-        public event HealthPointsChangedEvent OnHeal = delegate { };
-
-        public int HP
-        {
-            get => _hp;
-            set => _hp = Mathf.Clamp(value, 0, MaxHP);
-        }
-
 
         public Health(int maxHp)
         {
             MaxHP = maxHp;
-            HP = maxHp;
+            _hp = maxHp;
         }
+
         public void TakeDamage(int damagePoints)
         {
-            if (damagePoints < 0)
-            {
-                Debug.LogError("Damage cannot be less than 0");
-            }
-
-            var oldValue = HP;
-            HP -= damagePoints;
-            OnDamage?.Invoke(oldValue, HP);
-            if (HP <= 0) 
-            { 
-            OnDeath?.Invoke();
-            }
+            if (damagePoints < 0) return;
+            _hp = Mathf.Clamp(_hp - damagePoints, 0, MaxHP);
+            if (_hp <= 0) OnDeath?.Invoke();
         }
 
         public void Heal(int healPoints)
         {
-            if (healPoints < 0)
-            {
-                throw new ArgumentException("healPoints cannot be less than 0.");
-            }
-
-            var oldValue = HP;
-            HP = Mathf.Min(HP + healPoints, MaxHP);
-            OnHeal?.Invoke(oldValue, HP);
+            if (healPoints < 0) return;
+            _hp = Mathf.Min(_hp + healPoints, MaxHP);
         }
+
+        public int GetCurrentHealth() => _hp;
+        public int GetMaxHealth() => MaxHP;
     }
 }
