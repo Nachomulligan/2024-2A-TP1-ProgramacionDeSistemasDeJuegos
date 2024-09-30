@@ -22,6 +22,7 @@ namespace Enemies
 
         private void Awake()
         {
+            // initialize components, health, and find closest building
             FetchComponents();
             buildingAliveService = ServiceLocator.Instance.GetService("BuildingAliveService") as BuildingAliveService;
             health = new Health(10); 
@@ -30,11 +31,13 @@ namespace Enemies
 
         private void FetchComponents()
         {
+            // fetch NavMeshAgent
             agent ??= GetComponent<NavMeshAgent>();
         }
 
         private void UpdateClosestBuilding()
         {
+            // update the target to the closest building using BuildingAliveService
             if (buildingAliveService != null)
             {
                 Building closestBuilding = buildingAliveService.GetClosestBuilding(transform.position);
@@ -50,6 +53,7 @@ namespace Enemies
 
         public void OnSpawnFromPool(Vector3 spawnPosition)
         {
+            // reset agent position, health and find the closest building when spawning
             if (!agent.isActiveAndEnabled)
             {
                 agent.enabled = true;
@@ -77,6 +81,7 @@ namespace Enemies
 
         private void Update()
         {
+            // check if target building is active and find new target
             if (targetBuilding != null && !targetBuilding.gameObject.activeInHierarchy)
             {
                 Debug.Log($"{targetBuilding.name} is inactive. Finding new target...");
@@ -84,6 +89,7 @@ namespace Enemies
                 return;
             }
 
+            //check if enemy reached target and damage target and himself
             if (agent.hasPath && Vector3.Distance(transform.position, agent.destination) <= agent.stoppingDistance)
             {
                 if (!hasDamagedBuilding) 
@@ -91,7 +97,6 @@ namespace Enemies
                     Debug.Log($"{name}: I'll die for my people!");
                     DamageBuilding();
                     DamageSelf();
-                    CheckIfDead();
                     hasDamagedBuilding = true; 
                 }
             }
@@ -103,6 +108,7 @@ namespace Enemies
 
         private void DamageBuilding()
         {
+            // apply damage to the building if target is valid
             if (targetBuilding != null)
             {
                 Building building = targetBuilding.GetComponent<Building>(); 
@@ -123,6 +129,7 @@ namespace Enemies
         {
             int selfDamage = 10;
             health.TakeDamage(selfDamage);
+            CheckIfDead();
         }
 
         private void CheckIfDead()
@@ -135,6 +142,7 @@ namespace Enemies
 
         private void Die()
         {
+            // trigger death event and deactivate the enemy
             OnDeath();
             gameObject.SetActive(false);
         }

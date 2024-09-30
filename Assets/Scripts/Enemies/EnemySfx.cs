@@ -20,7 +20,7 @@ namespace Enemies
 
         private void OnEnable()
         {
-
+            //registers the AudioService and subscribes to the enemy's OnSpawn and OnDeath
             audioService = ServiceLocator.Instance.GetService("AudioService") as AudioService;
 
             _enemy.OnSpawn += HandleSpawn;
@@ -29,6 +29,7 @@ namespace Enemies
 
         private void OnDisable()
         {
+            //unsubscribes from events
             _enemy.OnSpawn -= HandleSpawn;
             _enemy.OnDeath -= HandleDeath;
         }
@@ -45,6 +46,7 @@ namespace Enemies
 
         private void PlayRandomClip(RandomContainer<AudioClipData> container, AudioPlayer sourcePrefab)
         {
+            //plays a random clip from the container 
             if (!container.TryGetRandom(out var clipData))
                 return;
 

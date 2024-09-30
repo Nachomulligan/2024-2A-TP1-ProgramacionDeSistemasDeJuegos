@@ -39,12 +39,14 @@ public class ServiceLocator : MonoBehaviour
     }
     public MonoBehaviour GetService(string serviceName)
     {
+        // retrieves a service by name
         servicesByName.TryGetValue(serviceName, out var service);
         return service;
     }
 
     public void SetService(string serviceName, MonoBehaviour value)
     {
+        // registers a service with a name
         if (!servicesByName.ContainsKey(serviceName))
         {
             servicesByName.Add(serviceName, value);

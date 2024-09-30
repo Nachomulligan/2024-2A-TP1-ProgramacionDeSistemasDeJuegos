@@ -19,6 +19,7 @@ namespace HealthSystem
 
         public void TakeDamage(int damagePoints)
         {
+            // reduces health by the specified damage, clamping it andd triggers deatj if 0
             if (damagePoints < 0) return;
             _hp = Mathf.Clamp(_hp - damagePoints, 0, MaxHP);
             if (_hp <= 0) OnDeath?.Invoke();
@@ -26,6 +27,7 @@ namespace HealthSystem
 
         public void Heal(int healPoints)
         {
+            // restores health points up to the maximum health
             if (healPoints < 0) return;
             _hp = Mathf.Min(_hp + healPoints, MaxHP);
         }

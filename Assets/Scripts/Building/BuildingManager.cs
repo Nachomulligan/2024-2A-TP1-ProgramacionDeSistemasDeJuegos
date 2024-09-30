@@ -7,6 +7,7 @@ public class BuildingManager : MonoBehaviour
 {
     public void HandleBuildingDeath(Building building)
     {
+        //handles the building's death and starts respawn coroutine
         StartCoroutine(RespawnBuilding(building));
     }
 

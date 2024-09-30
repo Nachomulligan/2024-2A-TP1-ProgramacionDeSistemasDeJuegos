@@ -33,6 +33,7 @@ public class ObjectPooler : MonoBehaviour
     private Vector3 vectorOnNavMesh = new Vector3(0, 21, 10);
     private void Start()
     {
+        // initialize the pool dictionary and create queues for each pool
         poolDict = new Dictionary<string, Queue<GameObject>>();
 
         foreach (Pool pool in pools)
@@ -45,6 +46,7 @@ public class ObjectPooler : MonoBehaviour
                 
                 objectPool.Enqueue(obj);
             }
+            // add the queue to the dictionary with its tags
             poolDict.Add(pool.tag, objectPool);
         }
     }
@@ -53,10 +55,11 @@ public class ObjectPooler : MonoBehaviour
     {
         if (!poolDict.ContainsKey(tag))
         {
+            // check if the tag exists in the pool dictionary
             Debug.LogWarning("Pool with tag " + tag + " doesn't exist.");
             return null;
         }
-
+        // dequeue the first object from the pool, activate it, and set its position/rotation
         GameObject objectToSpawn = poolDict[tag].Dequeue();
         objectToSpawn.SetActive(true);
         objectToSpawn.transform.position = position;

@@ -18,6 +18,7 @@ namespace HealthSystem
 
         public void TakeDamage(int damagePoints)
         {
+            // shield absorbs damage first, then base health takes remaining damage
             if (damagePoints < 0) return;
 
             if (_shield > 0)

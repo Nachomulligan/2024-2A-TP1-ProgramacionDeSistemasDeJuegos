@@ -19,17 +19,20 @@ namespace Enemies
 
         private void OnEnable()
         {
+            // registers the VFXService and subscribes to the enemy death
             vfxService = ServiceLocator.Instance.GetService("VFXService") as VFXService;
             _enemy.OnDeath += HandleDeath;
         }
 
         private void OnDisable()
         {
+            // unsubscribes from enemy death
             _enemy.OnDeath -= HandleDeath;
         }
 
         private void HandleDeath()
         {
+            //gets random prefab from service and instantiates it
             var deathPrefabs = vfxService.GetDeathParticles();
             if (!deathPrefabs.TryGetRandom(out var prefab))
                 return;

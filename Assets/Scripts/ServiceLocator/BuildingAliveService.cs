@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class BuildingAliveService : MonoBehaviour
 {
+    // list to keep track of active buildings
     private List<Building> activeBuildings = new List<Building>();
 
     private void Awake()
@@ -14,6 +15,7 @@ public class BuildingAliveService : MonoBehaviour
 
     public void RegisterBuilding(Building building)
     {
+        //register building if its not registerd
         if (!activeBuildings.Contains(building))
         {
             activeBuildings.Add(building);
@@ -22,6 +24,7 @@ public class BuildingAliveService : MonoBehaviour
 
     public void UnregisterBuilding(Building building)
     {
+        //unregister building if its registerd
         if (activeBuildings.Contains(building))
         {
             activeBuildings.Remove(building);
@@ -30,8 +33,9 @@ public class BuildingAliveService : MonoBehaviour
 
     public Building GetClosestBuilding(Vector3 position)
     {
+        // finds and returns the closest building to a given position
         Building closestBuilding = null;
-        float closestDistance = Mathf.Infinity;
+        float closestDistance = Mathf.Infinity; // maximum possible distance
 
         foreach (var building in activeBuildings)
         {
@@ -39,7 +43,7 @@ public class BuildingAliveService : MonoBehaviour
             if (distance < closestDistance)
             {
                 closestDistance = distance;
-                closestBuilding = building;
+                closestBuilding = building; // update the closest building
             }
         }
 
