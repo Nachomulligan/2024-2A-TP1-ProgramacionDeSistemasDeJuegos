@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Enemies;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ObjectPooler : MonoBehaviour
@@ -18,7 +20,7 @@ public class ObjectPooler : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); 
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -28,7 +30,7 @@ public class ObjectPooler : MonoBehaviour
 
     public List<Pool> pools;
     public Dictionary<string, Queue<GameObject>> poolDict;
-
+    private Vector3 vectorOnNavMesh = new Vector3(0, 21, 10);
     private void Start()
     {
         poolDict = new Dictionary<string, Queue<GameObject>>();
@@ -38,8 +40,9 @@ public class ObjectPooler : MonoBehaviour
             Queue<GameObject> objectPool = new Queue<GameObject>();
             for (int i = 0; i < pool.size; i++)
             {
-                GameObject obj = Instantiate(pool.prefab);
+                GameObject obj = Instantiate(pool.prefab, vectorOnNavMesh, Quaternion.identity);
                 obj.SetActive(false);
+                
                 objectPool.Enqueue(obj);
             }
             poolDict.Add(pool.tag, objectPool);

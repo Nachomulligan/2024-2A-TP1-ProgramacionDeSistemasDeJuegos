@@ -546,7 +546,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   respawnTime: 5
-  shieldAmount: 20
+  shieldAmount: 10
 --- !u!1 &405034309 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3912790089006741309, guid: 39f0147d774a5c94b8d666e83c941ade, type: 3}
@@ -565,7 +565,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   respawnTime: 5
-  shieldAmount: 20
+  shieldAmount: 10
 --- !u!1 &467014950
 GameObject:
   m_ObjectHideFlags: 0
@@ -1263,7 +1263,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   respawnTime: 5
-  shieldAmount: 20
+  shieldAmount: 10
 --- !u!1 &802423056
 GameObject:
   m_ObjectHideFlags: 0
@@ -1330,7 +1330,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3200819805897416871, guid: 39f0147d774a5c94b8d666e83c941ade, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3200819805897416871, guid: 39f0147d774a5c94b8d666e83c941ade, type: 3}
       propertyPath: m_TagString
@@ -1442,9 +1442,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3912790089006741309, guid: 39f0147d774a5c94b8d666e83c941ade, type: 3}
       insertIndex: -1
       addedObject: {fileID: 405034313}
-    - targetCorrespondingSourceObject: {fileID: 3200819805897416871, guid: 39f0147d774a5c94b8d666e83c941ade, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1456207004}
     - targetCorrespondingSourceObject: {fileID: 3200819805897416871, guid: 39f0147d774a5c94b8d666e83c941ade, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1456207003}
@@ -1814,19 +1811,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   respawnTime: 5
   shieldAmount: 20
---- !u!114 &1456207004
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1456206999}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3751498f339dda141948df23f60dce78, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealthPoints: 100
 --- !u!1 &1600744128 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8534426706320154938, guid: 39f0147d774a5c94b8d666e83c941ade, type: 3}
@@ -1845,7 +1829,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   respawnTime: 5
-  shieldAmount: 20
+  shieldAmount: 10
 --- !u!1 &1636804777
 GameObject:
   m_ObjectHideFlags: 0
@@ -1998,7 +1982,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   respawnTime: 5
-  shieldAmount: 20
+  shieldAmount: 10
 --- !u!1 &1754892836
 GameObject:
   m_ObjectHideFlags: 0
@@ -2258,7 +2242,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   respawnTime: 5
-  shieldAmount: 20
+  shieldAmount: 10
 --- !u!1 &1926896962
 GameObject:
   m_ObjectHideFlags: 0

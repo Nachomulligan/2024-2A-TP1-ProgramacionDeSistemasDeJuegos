@@ -22,7 +22,7 @@ public class Spawner : MonoBehaviour
 
         objectPooler = ObjectPooler.Instance;
 
-        while (true) 
+        while (true)
         {
             for (int i = 0; i < spawnsPerPeriod; i++)
             {
@@ -32,9 +32,9 @@ public class Spawner : MonoBehaviour
                 Enemy enemy = enemyObj.GetComponent<Enemy>();
                 if (enemy != null)
                 {
-                    enemy.OnSpawnFromPool(spawnPosition);  
+                    enemy.OnSpawnFromPool(spawnPosition);
                 }
-           
+
             }
 
             yield return new WaitForSeconds(period);

@@ -7,18 +7,17 @@ public class Building : MonoBehaviour
 {
     private IHealth health;
     public float respawnTime = 5f;
-    [SerializeField] private int shieldAmount = 20; // Cantidad de escudo para el edificio
-
+    [SerializeField] private int shieldAmount = 20;
+    private BuildingAliveService buildingAliveService;
     private void Awake()
     {
-        health = new ShieldDecorator(new Health(100), shieldAmount); // Crear una instancia de Health con escudo
+        health = new ShieldDecorator(new Health(10), shieldAmount);
+        buildingAliveService = ServiceLocator.Instance.GetService("BuildingAliveService") as BuildingAliveService;
     }
 
     private void OnEnable()
     {
         health.OnDeath += HandleDeath;
-
-        var buildingAliveService = ServiceLocator.Instance.GetService("BuildingAliveService") as BuildingAliveService;
         if (buildingAliveService != null)
         {
             buildingAliveService.RegisterBuilding(this);
@@ -28,8 +27,6 @@ public class Building : MonoBehaviour
     private void OnDisable()
     {
         health.OnDeath -= HandleDeath;
-
-        var buildingAliveService = ServiceLocator.Instance.GetService("BuildingAliveService") as BuildingAliveService;
         if (buildingAliveService != null)
         {
             buildingAliveService.UnregisterBuilding(this);
@@ -45,7 +42,7 @@ public class Building : MonoBehaviour
     public void Reactivate()
     {
         gameObject.SetActive(true);
-        health.Heal(health.GetMaxHealth()); // Reiniciar la salud al máximo
+        health.Heal(health.GetMaxHealth());
     }
 
     public void TakeDamage(int damage)

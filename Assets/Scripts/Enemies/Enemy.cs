@@ -97,7 +97,7 @@ namespace Enemies
             }
             else
             {
-                hasDamagedBuilding = false;
+                hasDamagedBuilding = false; 
             }
         }
 
@@ -109,7 +109,7 @@ namespace Enemies
                 if (building != null)
                 {
                     int damageAmount = 10;
-                    building.TakeDamage(damageAmount); 
+                    building.TakeDamage(damageAmount);
                     Debug.Log($"{name} dealt {damageAmount} damage to {targetBuilding.name}.");
                 }
                 else
